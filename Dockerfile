@@ -1,4 +1,16 @@
-FROM n8nio/n8n
+# FROM n8nio/n8n
 
-# Optional: Set timezone
-ENV TZ=Asia/Kolkata
+# # Optional: Set timezone
+# ENV TZ=Asia/Kolkata
+
+docker volume create n8n_data
+
+docker run -it --rm \
+ --name n8n \
+ -p 5678:5678 \
+ -e GENERIC_TIMEZONE="Asia/Kolkata" \
+ -e TZ="Asia/Kolkata" \
+ -e N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=true \
+ -e N8N_RUNNERS_ENABLED=true \
+ -v n8n_data:/home/node/.n8n \
+ docker.n8n.io/n8nio/n8n
